@@ -3,7 +3,7 @@
 A PPO agent trained to land the rocket in Gymnasium's `LunarLander-v3`, used to study how changes to the reward function change the learned behaviour. The project covers a baseline agent, a time-penalty variant, and a deliberately broken reward that reproduces reward hacking.
 
 <p align="center">
-  <video src="media/baseline_landing.mp4" width="400" controls></video>
+  <img src="media/baseline_landing.gif" width="400" alt="Baseline agent landing">
 </p>
 
 ## Results
@@ -29,7 +29,7 @@ All agents were trained for 1M steps with the same PPO hyperparameters. Test sco
 
 | Baseline | Hover bonus |
 |---|---|
-| `media/baseline_landing.mp4` | `media/hover_hack.mp4` |
+| ![Baseline agent landing](media/baseline_landing.gif) | ![Hover-bonus agent hovering](media/hover_hack.gif) |
 
 ## Project structure
 
@@ -41,7 +41,7 @@ lunar-lander/
 ├── rewards.py         # Reward wrappers (TimePenalty, UprightBonus) and logging callback
 ├── experiments.py     # Random-agent exploration of the environment
 ├── ppo_*.zip          # Trained models
-├── media/             # Selected video clips
+├── media/             # Demo clips (MP4 and GIF)
 └── requirements.txt
 ```
 
