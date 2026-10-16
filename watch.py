@@ -1,9 +1,12 @@
 import gymnasium as gym
+import sys
 from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.monitor import Monitor
 
-model = PPO.load("ppo_lunar", device="cpu")
+name = sys.argv[1] if len(sys.argv) > 1 else "ppo_lunar"
+model = PPO.load(name, device="cpu")
+print(f"Testing {name}")
 
 # 1. Proper test: 20 fresh episodes, no window
 eval_env = Monitor(gym.make("LunarLander-v3"))

@@ -1,6 +1,7 @@
 import argparse
 import time
 from stable_baselines3 import PPO
+from rewards import TimePenalty
 from stable_baselines3.common.env_util import make_vec_env
 from stable_baselines3.common.vec_env import SubprocVecEnv
 
@@ -11,10 +12,20 @@ def main():
     parser.add_argument("--device", default="cpu")             # "cpu" or "cuda"
     parser.add_argument("--steps", type=int, default=1_000_000)
     parser.add_argument("--name", default="ppo_lunar")
+    parser.add_argument("--reward", default="none")          # "none" or "time"
+    parser.add_argument("--penalty", type=float, default=0.05)
     args = parser.parse_args()
 
     # 16 copies of the game, each in its own process (uses your CPU cores)
     env = make_vec_env("LunarLander-v3", n_envs=16, vec_env_cls=SubprocVecEnv)
+
+    if args.reward == "time":
+        wrapper, wrapper_kwargs = TimePenalty, {"penalty": args.penalty}
+    else:
+        wrapper, wrapper_kwargs = None, None
+
+    env = make_vec_env("LunarLander-v3", n_envs=16, vec_env_cls=SubprocVecEnv,
+                       wrapper_class=wrapper, wrapper_kwargs=wrapper_kwargs)
 
     model = PPO(
         "MlpPolicy",
