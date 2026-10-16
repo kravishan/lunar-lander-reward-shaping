@@ -1,0 +1,11 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Training output
+logs/
+test_*.zip
+
+# Videos (keep only chosen clips in media/)
+videos/
