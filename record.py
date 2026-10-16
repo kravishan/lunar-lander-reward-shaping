@@ -1,8 +1,10 @@
+import sys
 import gymnasium as gym
 from gymnasium.wrappers import RecordVideo
 from stable_baselines3 import PPO
 
-model = PPO.load("ppo_lunar", device="cpu")
+name = sys.argv[1] if len(sys.argv) > 1 else "ppo_lunar"
+model = PPO.load(name, device="cpu")
 
 env = gym.make("LunarLander-v3", render_mode="rgb_array")   # frames as images, no window
 env = RecordVideo(env, video_folder="videos", name_prefix="baseline",
